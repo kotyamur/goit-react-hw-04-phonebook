@@ -6,6 +6,13 @@ import { ContactList } from './ContactList/ContactList ';
 import { Container, Title, SecondTitle } from './App.styled';
 
 const STORAGE_FORM_DATA = 'contacts';
+const parsedDataFromLS = (key, initialValue = []) => {
+  try {
+    return JSON.parse(localStorage.getItem(key)) ?? initialValue;
+  } catch (error) {
+    return initialValue;
+  }
+};
 
 export class App extends Component {
   state = {
@@ -14,16 +21,8 @@ export class App extends Component {
   };
 
   componentDidMount() {
-    const savedContacts = localStorage.getItem(STORAGE_FORM_DATA);
-
-    if (savedContacts) {
-      try {
-        const parsedContacts = JSON.parse(savedContacts);
-        this.setState({ contacts: parsedContacts });
-      } catch (error) {
-        this.setState({ contacts: [] });
-      }
-    }
+    const contacts = parsedDataFromLS(STORAGE_FORM_DATA);
+    this.setState({ contacts });
   }
 
   componentDidUpdate(_, prevState) {
