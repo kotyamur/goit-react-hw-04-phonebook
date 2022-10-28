@@ -16,6 +16,7 @@ const parsedDataFromLS = (key, initialValue = []) => {
 
 export const App = () => {
   const [contacts, setContacts] = useState([]);
+  const [filter, setFilter] = useState('');
 
   useEffect(() => {
     const savedContacts = parsedDataFromLS(STORAGE_FORM_DATA);
@@ -53,22 +54,41 @@ export const App = () => {
     setContacts(prevContacts => [contact, ...prevContacts]);
   };
 
+  const changeFilter = e => {
+    setFilter(e.currentTarget.value);
+  };
+
+  // getContactsByName = () => {
+  //   const { filter, contacts } = this.state;
+  //   const normalizedFilter = filter.toLowerCase();
+
+  //   return contacts.filter(contact =>
+  //     contact.name.toLowerCase().includes(normalizedFilter)
+  //   );
+  // };
+
+  // deleteContact = contactId => {
+  //     this.setState(prevState => ({
+  //       contacts: prevState.contacts.filter(contact => contact.id !== contactId),
+  //     }));
+  //   };
+
   return (
     <Container>
       <Title>Phonebook</Title>
       <ContactForm onSubmit={addContact} />
 
-      {/* <SecondTitle>Contacts</SecondTitle>
-        {contacts.length > 0 && (
-          <>
-            <Filter value={filter} onChange={this.changeFilter} />
-            <ContactList
-              contacts={filteredContacts}
-              onDeleteContact={this.deleteContact}
-            />
-          </>
-        )}
-        {contacts.length === 0 && <p>There is no contacts</p>} */}
+      <SecondTitle>Contacts</SecondTitle>
+      {contacts.length > 0 && (
+        <>
+          <Filter value={filter} onChange={changeFilter} />
+          {/* <ContactList
+            contacts={filteredContacts}
+            onDeleteContact={this.deleteContact}
+          /> */}
+        </>
+      )}
+      {contacts.length === 0 && <p>There is no contacts</p>}
     </Container>
   );
 };
