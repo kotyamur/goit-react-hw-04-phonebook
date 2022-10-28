@@ -66,11 +66,11 @@ export const App = () => {
     );
   };
 
-  // deleteContact = contactId => {
-  //     this.setState(prevState => ({
-  //       contacts: prevState.contacts.filter(contact => contact.id !== contactId),
-  //     }));
-  //   };
+  const deleteContact = contactId => {
+    setContacts(prevContacts =>
+      prevContacts.filter(contact => contact.id !== contactId)
+    );
+  };
 
   return (
     <Container>
@@ -83,7 +83,7 @@ export const App = () => {
           <Filter value={filter} onChange={changeFilter} />
           <ContactList
             contacts={getContactsByName()}
-            // onDeleteContact={this.deleteContact}
+            onDeleteContact={deleteContact}
           />
         </>
       )}
