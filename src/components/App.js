@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { nanoid } from 'nanoid';
 import { ContactForm } from './ContactForm/ContactForm';
 import { Filter } from './Filter/Filter';
@@ -17,8 +17,22 @@ const parsedDataFromLS = (key, initialValue = []) => {
 export const App = () => {
   const [contacts, setContacts] = useState([]);
 
+  useEffect(() => {
+    const savedContacts = parsedDataFromLS(STORAGE_FORM_DATA);
+    if (savedContacts.length === 0) {
+      return;
+    }
+    setContacts(savedContacts);
+  }, []);
+
+  useEffect(() => {
+    if (contacts.length === 0) {
+      return;
+    }
+    localStorage.setItem(STORAGE_FORM_DATA, JSON.stringify(contacts));
+  }, [contacts]);
+
   const checkContactsName = name => {
-    // const { contacts } = this.state;
     const normalizedName = name.toLowerCase();
     return contacts.some(({ name }) => normalizedName === name.toLowerCase());
   };
