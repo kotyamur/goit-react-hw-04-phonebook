@@ -28,7 +28,7 @@ export const App = () => {
 
   useEffect(() => {
     // if (contacts.length === 0) {
-    //   return;
+    //   return
     // }
     localStorage.setItem(STORAGE_FORM_DATA, JSON.stringify(contacts));
   }, [contacts]);
