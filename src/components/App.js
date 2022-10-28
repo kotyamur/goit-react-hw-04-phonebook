@@ -58,14 +58,13 @@ export const App = () => {
     setFilter(e.currentTarget.value);
   };
 
-  // getContactsByName = () => {
-  //   const { filter, contacts } = this.state;
-  //   const normalizedFilter = filter.toLowerCase();
+  const getContactsByName = () => {
+    const normalizedFilter = filter.toLowerCase();
 
-  //   return contacts.filter(contact =>
-  //     contact.name.toLowerCase().includes(normalizedFilter)
-  //   );
-  // };
+    return contacts.filter(contact =>
+      contact.name.toLowerCase().includes(normalizedFilter)
+    );
+  };
 
   // deleteContact = contactId => {
   //     this.setState(prevState => ({
@@ -82,10 +81,10 @@ export const App = () => {
       {contacts.length > 0 && (
         <>
           <Filter value={filter} onChange={changeFilter} />
-          {/* <ContactList
-            contacts={filteredContacts}
-            onDeleteContact={this.deleteContact}
-          /> */}
+          <ContactList
+            contacts={getContactsByName()}
+            // onDeleteContact={this.deleteContact}
+          />
         </>
       )}
       {contacts.length === 0 && <p>There is no contacts</p>}
